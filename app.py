@@ -12,7 +12,7 @@ command = r'"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-deb
 subprocess.Popen(command, shell=True)
 time.sleep(10)
 
-chrome_service = Service(executable_path='E:/隆介/■selenium/★20241026 素材一式(木村)/chromedriver-win64/chromedriver.exe')
+chrome_service = Service(executable_path='c:\chromedriver-win64\chromedriver.exe')
 
 # Chromeオプションを設定
 chrome_options = Options()
@@ -105,7 +105,8 @@ def main():
             # ************ 条件設定 ************
             # "予約可能" のリンクを取得
             # 　　　image0：全面  image1：A面  image2：B面
-            xpath = "//img[( @name='image1' or @name='image2' ) and @alt='予約可能 ']"
+            # xpath = "//img[( @name='image1' or @name='image2' ) and @alt='予約可能 ']"
+            xpath = "//img[@name='image0' and @alt='予約可能 ']"
             select_element2 = util.get_elements_xpath(driver, xpath)
             if select_element2:
                 
