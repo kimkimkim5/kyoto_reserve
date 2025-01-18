@@ -8,18 +8,33 @@ from selenium.webdriver.support import expected_conditions as EC
 import time
 import os
 import logger
+import csv
 
 SLEEP_TIME = 3
 
 KYOTO_FACILITY_USERNAME = os.environ.get('KYOTO_FACILITY_USERNAME')
 KYOTO_FACILITY_PASSWORD = os.environ.get('KYOTO_FACILITY_PASSWORD')
 
-SELECT_MONTH = 2
-SELECT_DAY = [4, 6, 13, 18, 20, 25, 27]
+SELECT_MONTH = 0
+SELECT_DAY = []
 
 POPUP_ACCEPT = 1
 POPUP_DISMISS = 2
 
+file_path = 'input.csv'
+
+# CSVファイルを読み込む
+def read_csvfile():
+    global SELECT_MONTH, SELECT_DAY
+    file = open(file_path, mode='r', encoding='utf-8')
+    index = 0
+    reader = csv.reader(file)
+    for row in reader:
+        if index == 0:
+            SELECT_MONTH = row[0]
+        else:
+            SELECT_DAY = row
+        index = index + 1
 
 
 def link_click(driver, link_text, index):
@@ -79,11 +94,6 @@ def set_textbox(driver, xpath_text, value, index):
     textbox[index].send_keys(value)
     logger.debug(f'set_textbox END {value}')
     time.sleep(SLEEP_TIME)
-
-
-
-
-
 
 
 

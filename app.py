@@ -60,12 +60,14 @@ def main():
     
     
     # ==================== 日程選択 ======================
+    util.read_csvfile()
     # "該当月" をクリック
     util.link_click(driver, f"{util.SELECT_MONTH}月", 0)
     
     logger.info(f'★★★★★  {util.SELECT_MONTH}月の登録を実施★★★★★')
     
     for index in util.SELECT_DAY:
+        index = index.strip()
 
         # 念のため、クリアしておく
         xpath = "//input[@name='btn_clear']"
