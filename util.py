@@ -75,6 +75,14 @@ def popup_click(driver, f):
     logger.debug(f'popup_click END {f}')
     time.sleep(SLEEP_TIME)
 
+def xpath_select(driver, xpath_text, var, index:int = 0):
+    logger.debug(f'xpath_select START {xpath_text}')
+    elements = driver.find_elements(By.XPATH, xpath_text)
+    dropdown = Select(elements[index])
+    dropdown.select_by_visible_text(var)  
+    logger.debug(f'xpath_select END {xpath_text}')
+    time.sleep(SLEEP_TIME)
+
 
 def switch_window(driver, all_windows, original_window):
     logger.debug(f'switch_window START')
