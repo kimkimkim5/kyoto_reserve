@@ -160,8 +160,12 @@ def main():
             util.xpath_click(driver, xpath, 0)
         
             # ==================== 内容確認ダイアログ ====================== 
-            util.popup_click(driver, util.POPUP_DISMISS)
-            logger.info(f'＝＝＝＝＝  {util.SELECT_MONTH}月{str(index)}日の予約は完了しました ＝＝＝＝＝')
+            if util.TEST_FLAG:    
+                util.popup_click(driver, util.POPUP_DISMISS)
+                logger.info(f'＝＝＝＝＝  {util.SELECT_MONTH}月{str(index)}日のテスト予約は完了しました ＝＝＝＝＝')
+            else:
+                util.popup_click(driver, util.POPUP_ACCEPT)
+                logger.info(f'＝＝＝＝＝  {util.SELECT_MONTH}月{str(index)}日の予約は完了しました ＝＝＝＝＝')
             
             # ==================== 画面戻し作業(1) ======================
             # "戻る" のリンクを取得

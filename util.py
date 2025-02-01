@@ -13,13 +13,15 @@ config.read("config.ini", encoding="utf8")
 section = sys.argv[1] if len(sys.argv) >= 2 else "default"
 config = config[section]
 
-SLEEP_TIME = 3
+SLEEP_TIME = config.get("sleep_time")
 
 KYOTO_FACILITY_USERNAME = os.environ.get('KYOTO_FACILITY_USERNAME')
 KYOTO_FACILITY_PASSWORD = os.environ.get('KYOTO_FACILITY_PASSWORD')
 
 SELECT_MONTH = 0
 SELECT_DAY = []
+
+TEST_FLAG = config.get("test_flag")
 
 POPUP_ACCEPT = 1
 POPUP_DISMISS = 2
