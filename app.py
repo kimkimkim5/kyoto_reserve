@@ -8,22 +8,22 @@ import subprocess
 
 
 # --- 先ず、以下を実行し、デバッグモードのブラウザを立ちあげる。 ---
-command = r'"C:\Program Files\Google\Chrome\Application\chrome.exe" --remote-debugging-port=9222 --user-data-dir=C:\selenium\chrome-profile'
+command = util.DEBUG_MODE_COMMAND
 subprocess.Popen(command, shell=True)
 time.sleep(10)
 
-chrome_service = Service(executable_path='c:\chromedriver-win64\chromedriver.exe')
+chrome_service = Service(executable_path=util.CHROMEDRIVER_PATH)
 
 # Chromeオプションを設定
 chrome_options = Options()
-chrome_options.debugger_address = "localhost:9222"  # デバッグモードのポート番号に合わせる
+chrome_options.debugger_address = util.DEBUG_MODE_URL  # デバッグモードのポート番号に合わせる
 
 # 既に開いているChromeブラウザに接続
 driver = webdriver.Chrome(service=chrome_service, options=chrome_options)
 
 # データ登録の操作を実行
 # ここにRPAを実施したいURLを登録します。
-driver.get('https://g-kyoto.pref.kyoto.lg.jp/reserve_j/core_i/init.asp?SBT=1&Target=_Top&LCD=')
+driver.get(util.KYOTO_URL)
 
 # 現在開かれているタブのハンドルを取得
 original_window = driver.current_window_handle

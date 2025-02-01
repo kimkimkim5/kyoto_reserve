@@ -1,14 +1,17 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import Select
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
+import configparser
 import time
 import os
+import sys
 import logger
 import csv
+
+
+config = configparser.ConfigParser(interpolation=None)
+config.read("config.ini", encoding="utf8")
+section = sys.argv[1] if len(sys.argv) >= 2 else "default"
+config = config[section]
 
 SLEEP_TIME = 3
 
@@ -21,12 +24,29 @@ SELECT_DAY = []
 POPUP_ACCEPT = 1
 POPUP_DISMISS = 2
 
-file_path = 'input.csv'
+
+# デバッグモード立ち上げコマンド
+DEBUG_MODE_COMMAND = config.get("debug_mode_command")
+DEBUG_MODE_URL     = config.get("debug_mode_url")
+
+# Chrome Driverパス
+CHROMEDRIVER_PATH = config.get("chromedriver_path")
+
+# 日付読み込みファイル
+READ_DATE_FILE = config.get("read_date_file")
+
+# URL情報
+KYOTO_URL = config.get("kyoto_url")
+
+
+
+
+
 
 # CSVファイルを読み込む
 def read_csvfile():
     global SELECT_MONTH, SELECT_DAY
-    file = open(file_path, mode='r', encoding='utf-8')
+    file = open(READ_DATE_FILE, mode='r', encoding='utf-8')
     index = 0
     reader = csv.reader(file)
     for row in reader:
